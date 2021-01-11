@@ -3,6 +3,8 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import PostItem from './PostItem';
 
+import PostModal from './PostModal';
+
 function Post ()
 {
 	const [ posts, setPosts ] = useState( [] );
@@ -25,7 +27,7 @@ function Post ()
 					<p className="lead mb-0"><a href="#" className="text-white fw-bold">Continue reading...</a></p>
 				</div>
 			</div>
-
+			<PostModal />
 			<div className="row px-0">
 				{ posts.map( post => (
 					<PostItem post={ post } key={ post.id } />
