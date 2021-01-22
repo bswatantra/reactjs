@@ -2480,13 +2480,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _PostItem__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./PostItem */ "./resources/js/components/PostItem.js");
-/* harmony import */ var _PostModal__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./PostModal */ "./resources/js/components/PostModal.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _PostItem__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./PostItem */ "./resources/js/components/PostItem.js");
+/* harmony import */ var _PostModal__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./PostModal */ "./resources/js/components/PostModal.js");
 
 
 
@@ -2507,19 +2505,27 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
-
 function Post() {
-  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)([]),
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)([]),
       _useState2 = _slicedToArray(_useState, 2),
       posts = _useState2[0],
-      setPosts = _useState2[1];
+      setPosts = _useState2[1]; // const url = 'https://jsonplaceholder.typicode.com/posts'
 
-  var url = 'https://jsonplaceholder.typicode.com/posts';
-  axios__WEBPACK_IMPORTED_MODULE_3___default().get(url).then(function (response) {
-    setPosts(response.data);
-  })["catch"](function (error) {
-    console.log(error);
-  });
+
+  var url = '/api/posts'; // const url = 'https://jsonplaceholder.typicode.com/posts';
+
+  (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(function () {
+    getAllPosts();
+  }, []);
+
+  var getAllPosts = function getAllPosts() {
+    axios__WEBPACK_IMPORTED_MODULE_2___default().get(url).then(function (response) {
+      setPosts(response.data);
+    })["catch"](function (error) {
+      console.log(error);
+    });
+  };
+
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("main", {
     className: "container-fluid py-4",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
@@ -2541,10 +2547,10 @@ function Post() {
           })
         })]
       })
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_PostModal__WEBPACK_IMPORTED_MODULE_5__.default, {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_PostModal__WEBPACK_IMPORTED_MODULE_4__.default, {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
       className: "row px-0",
       children: posts.map(function (post) {
-        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_PostItem__WEBPACK_IMPORTED_MODULE_4__.default, {
+        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_PostItem__WEBPACK_IMPORTED_MODULE_3__.default, {
           post: post
         }, post.id);
       })
@@ -2638,7 +2644,9 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 function PostModal() {
   var post = function post() {
-    console.log(values);
+    axios.post('/api/posts', values).then(function (values) {
+      console.log(values.data);
+    }); // console.log( values );
   };
 
   var _Form = (0,_utils_Form__WEBPACK_IMPORTED_MODULE_2__.default)(post),

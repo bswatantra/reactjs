@@ -5,7 +5,12 @@ function PostModal ()
 {
 	const post = () =>
 	{
-		console.log( values );
+		axios.post( '/api/posts', values )
+			.then( function ( values )
+			{
+				console.log( values.data );
+			} );
+		// console.log( values );
 	}
 	const [ values, handleChange, handleSubmit ] = Form( post );
 

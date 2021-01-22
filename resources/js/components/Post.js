@@ -1,5 +1,4 @@
-import { divide, set } from 'lodash';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import PostItem from './PostItem';
 
@@ -8,15 +7,27 @@ import PostModal from './PostModal';
 function Post ()
 {
 	const [ posts, setPosts ] = useState( [] );
-	const url = 'https://jsonplaceholder.typicode.com/posts'
-	axios.get( url )
-		.then( function ( response )
-		{
-			setPosts( response.data );
-		} ).catch( function ( error )
-		{
-			console.log( error );
-		} )
+	// const url = 'https://jsonplaceholder.typicode.com/posts'
+	const url = '/api/posts';
+	// const url = 'https://jsonplaceholder.typicode.com/posts';
+
+	useEffect( () =>
+	{
+		getAllPosts();
+
+	}, [] )
+	const getAllPosts = () =>
+	{
+		axios.get( url )
+			.then( function ( response )
+			{
+				setPosts( response.data );
+			} ).catch( function ( error )
+			{
+				console.log( error );
+			} )
+	}
+
 
 	return (
 		<main className="container-fluid py-4">
